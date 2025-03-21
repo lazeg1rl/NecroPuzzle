@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create DMT Boy Image</title>
+</head>
+<body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Фон
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(0, 0, 300, 300);
+
+        // Тело
+        ctx.fillStyle = '#8b0000';
+        ctx.beginPath();
+        ctx.arc(150, 150, 50, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Глаза
+        ctx.fillStyle = '#ff0000';
+        ctx.beginPath();
+        ctx.arc(130, 140, 10, 0, Math.PI * 2);
+        ctx.arc(170, 140, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Улыбка
+        ctx.strokeStyle = '#ff0000';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(150, 160, 20, 0, Math.PI);
+        ctx.stroke();
+
+        // Руки
+        ctx.strokeStyle = '#8b0000';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(100, 150);
+        ctx.quadraticCurveTo(80, 100, 100, 50);
+        ctx.moveTo(200, 150);
+        ctx.quadraticCurveTo(220, 100, 200, 50);
+        ctx.stroke();
+
+        // Ноги
+        ctx.beginPath();
+        ctx.moveTo(130, 200);
+        ctx.lineTo(120, 250);
+        ctx.moveTo(170, 200);
+        ctx.lineTo(180, 250);
+        ctx.stroke();
+
+        // DMT текст
+        ctx.fillStyle = '#ff0000';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('DMT', 150, 280);
+
+        // Сохраняем изображение
+        const link = document.createElement('a');
+        link.download = 'dmtboy.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    </script>
+</body>
+</html> 

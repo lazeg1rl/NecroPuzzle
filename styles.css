@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    font-family: 'Creepster', cursive;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    text-align: center;
+    max-width: 90%;
+    width: 600px;
+    position: relative;
+    z-index: 1;
+}
+
+.loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: #8b0000;
+    text-shadow: 0 0 5px #8b0000;
+    z-index: 100;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px #8b0000;
+    color: #ff0000;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#puzzle-container {
+    width: 300px;
+    height: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background-color: rgba(42, 42, 42, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(58, 58, 58, 0.8);
+    border: 1px solid #8b0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    transition: all 0.3s ease;
+    user-select: none;
+    overflow: hidden;
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+}
+
+.puzzle-piece:hover {
+    background-color: rgba(74, 74, 74, 0.8);
+    box-shadow: 0 0 10px #8b0000;
+}
+
+.puzzle-piece[draggable="true"]:hover {
+    background-color: rgba(90, 90, 90, 0.8);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+button {
+    background-color: rgba(42, 42, 42, 0.8);
+    color: #8b0000;
+    border: 1px solid #8b0000;
+    padding: 0.5rem 1rem;
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: rgba(58, 58, 58, 0.8);
+    box-shadow: 0 0 10px #8b0000;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2rem;
+    color: #8b0000;
+    text-shadow: 0 0 5px #8b0000;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.win-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
+    border: 2px solid #8b0000;
+}
+
+.win-animation.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.win-gif {
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.music-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    display: flex;
+    gap: 10px;
+}
+
+.music-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(42, 42, 42, 0.8);
+    border: 2px solid #8b0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.music-icon, .mute-icon {
+    font-size: 1.5rem;
+    color: #8b0000;
+    text-shadow: 0 0 5px #8b0000;
+}
+
+.music-button.playing .music-icon {
+    animation: pulse 1s infinite;
+}
+
+.music-button.muted .mute-icon {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.volume-control {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #8b0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+}
+
+.volume-icon {
+    font-size: 1.2rem;
+    color: #8b0000;
+    text-shadow: 0 0 5px #8b0000;
+}
+
+#volume-slider {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: rgba(139, 0, 0, 0.3);
+    border-radius: 5px;
+    outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #8b0000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px #8b0000;
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #8b0000;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px #8b0000;
+} 
